@@ -15,21 +15,21 @@ namespace BehaviorTree
             {
                 switch (node.Evaluate())
                 {
-                    case NodeState.FAILURE:
-                        _state = NodeState.FAILURE;
+                    case NodeState.Failure:
+                        _state = NodeState.Failure;
                         return _state;
-                    case NodeState.SUCCESS:
+                    case NodeState.Success:
                         continue;
-                    case NodeState.RUNNING:
+                    case NodeState.Running:
                         anyChildIsRunning = true;
                         continue;
                     default:
-                        _state = NodeState.SUCCESS;
+                        _state = NodeState.Success;
                         return _state;
                 }
             }
 
-            _state = anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESS;
+            _state = anyChildIsRunning ? NodeState.Running : NodeState.Success;
             return _state;
         }
     }

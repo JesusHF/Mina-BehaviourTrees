@@ -17,7 +17,7 @@ public class CheckEnemyInAttackRange : Node
         object t = GetData("target");
         if (t == null)
         {
-            _state = NodeState.FAILURE;
+            _state = NodeState.Failure;
             return _state;
         }
 
@@ -27,11 +27,11 @@ public class CheckEnemyInAttackRange : Node
             _animator.SetBool("Attacking", true);
             _animator.SetBool("Walking", false);
 
-            _state = NodeState.SUCCESS;
+            _state = NodeState.Success;
             return _state;
         }
 
-        _state = NodeState.FAILURE;
+        _state = NodeState.Failure;
         return _state;
     }
 }

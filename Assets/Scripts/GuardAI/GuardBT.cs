@@ -15,15 +15,15 @@ public class GuardBT : BehaviorTree.Tree
         {
             new Sequence(new List<Node>
             {
-                new CheckEnemyInAttackRange(transform),
-                new TaskAttack(transform),
+                new CheckEnemyInAttackRange(this.transform),
+                new TaskAttack(this.transform),
             }),
             new Sequence(new List<Node>
             {
-                new CheckEnemyInFOVRange(transform),
-                new TaskGoToTarget(transform),
+                new CheckEnemyInFOVRange(this.transform),
+                new TaskGoToTarget(this.transform),
             }),
-            new TaskPatrol(transform, waypoints),
+            new TaskPatrol(this.transform, waypoints),
         });
 
         return root;

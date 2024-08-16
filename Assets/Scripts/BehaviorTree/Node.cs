@@ -4,9 +4,9 @@ namespace BehaviorTree
 {
     public enum NodeState
     {
-        RUNNING,
-        SUCCESS,
-        FAILURE
+        Running,
+        Success,
+        Failure
     }
 
     public class Node
@@ -34,7 +34,7 @@ namespace BehaviorTree
 
         public virtual NodeState Evaluate()
         {
-            return NodeState.FAILURE;
+            return NodeState.Failure;
         }
 
         public void SetData(string key, object value)

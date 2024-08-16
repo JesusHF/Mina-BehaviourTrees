@@ -54,7 +54,7 @@ public class TaskPatrol : Node
         }
 
 
-        _state = NodeState.RUNNING;
+        _state = NodeState.Running;
         return _state;
     }
 
