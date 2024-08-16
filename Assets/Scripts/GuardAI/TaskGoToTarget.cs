@@ -24,8 +24,8 @@ public class TaskGoToTarget : Node
             _transform.LookAt(target.position);
         }
 
-        state = NodeState.RUNNING;
-        return state;
+        _state = NodeState.RUNNING;
+        return _state;
     }
 
 }

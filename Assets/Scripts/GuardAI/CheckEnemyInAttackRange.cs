@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 using BehaviorTree;
 
 public class CheckEnemyInAttackRange : Node
@@ -20,8 +17,8 @@ public class CheckEnemyInAttackRange : Node
         object t = GetData("target");
         if (t == null)
         {
-            state = NodeState.FAILURE;
-            return state;
+            _state = NodeState.FAILURE;
+            return _state;
         }
 
         Transform target = (Transform)t;
@@ -30,12 +27,11 @@ public class CheckEnemyInAttackRange : Node
             _animator.SetBool("Attacking", true);
             _animator.SetBool("Walking", false);
 
-            state = NodeState.SUCCESS;
-            return state;
+            _state = NodeState.SUCCESS;
+            return _state;
         }
 
-        state = NodeState.FAILURE;
-        return state;
+        _state = NodeState.FAILURE;
+        return _state;
     }
-
 }

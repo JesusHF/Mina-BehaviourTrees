@@ -54,8 +54,8 @@ public class TaskPatrol : Node
         }
 
 
-        state = NodeState.RUNNING;
-        return state;
+        _state = NodeState.RUNNING;
+        return _state;
     }
 
 }

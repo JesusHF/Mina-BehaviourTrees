@@ -27,18 +27,18 @@ public class CheckEnemyInFOVRange : Node
 
             if (colliders.Length > 0)
             {
-                parent.parent.SetData("target", colliders[0].transform);
+                _parent.Parent.SetData("target", colliders[0].transform);
                 _animator.SetBool("Walking", true);
-                state = NodeState.SUCCESS;
-                return state;
+                _state = NodeState.SUCCESS;
+                return _state;
             }
 
-            state = NodeState.FAILURE;
-            return state;
+            _state = NodeState.FAILURE;
+            return _state;
         }
 
-        state = NodeState.SUCCESS;
-        return state;
+        _state = NodeState.SUCCESS;
+        return _state;
     }
 
 }
