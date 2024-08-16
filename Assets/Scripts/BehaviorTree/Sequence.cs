@@ -32,7 +32,5 @@ namespace BehaviorTree
             _state = anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESS;
             return _state;
         }
-
     }
-
 }
