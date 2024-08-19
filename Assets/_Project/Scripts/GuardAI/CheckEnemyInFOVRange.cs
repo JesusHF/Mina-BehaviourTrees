@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using BehaviorTree;
+using MinaBehaviorTree;
 
 public class CheckEnemyInFOVRange : Node
 {

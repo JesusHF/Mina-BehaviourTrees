@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using BehaviorTree;
+using MinaBehaviorTree;
 
-public class GuardBT : BehaviorTree.Tree
+public class GuardBT : BehaviorTree
 {
     public Transform[] waypoints;
     public static float speed { get { return 2f; } }

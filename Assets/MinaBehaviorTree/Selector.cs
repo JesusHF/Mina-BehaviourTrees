@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BehaviorTree
+namespace MinaBehaviorTree
 {
     public class Selector : Node
     {
