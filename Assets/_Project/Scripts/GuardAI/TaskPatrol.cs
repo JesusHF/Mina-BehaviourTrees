@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using KiwiBehaviorTree;
 
-using MinaBehaviorTree;
-
-public class TaskPatrol : Node
+public class TaskPatrol : Action
 {
     private Transform _transform;
     private Animator _animator;
@@ -23,7 +20,7 @@ public class TaskPatrol : Node
         _waypoints = waypoints;
     }
 
-    public override NodeState Evaluate()
+    public override NodeState OnUpdate()
     {
         if (_waiting)
         {
@@ -36,10 +33,10 @@ public class TaskPatrol : Node
         }
         else
         {
-            Transform wp = _waypoints[_currentWaypointIndex];
-            if (Vector3.Distance(_transform.position, wp.position) < 0.01f)
+            Transform waypoint = _waypoints[_currentWaypointIndex];
+            if (Vector3.Distance(_transform.position, waypoint.position) < 0.01f)
             {
-                _transform.position = wp.position;
+                _transform.position = waypoint.position;
                 _waitCounter = 0f;
                 _waiting = true;
 
@@ -48,14 +45,12 @@ public class TaskPatrol : Node
             }
             else
             {
-                _transform.position = Vector3.MoveTowards(_transform.position, wp.position, GuardBT.speed * Time.deltaTime);
-                _transform.LookAt(wp.position);
+                _transform.position = Vector3.MoveTowards(_transform.position, waypoint.position, GuardBT.speed * Time.deltaTime);
+                _transform.LookAt(waypoint.position);
             }
         }
-
 
         _state = NodeState.Running;
         return _state;
     }
-
 }

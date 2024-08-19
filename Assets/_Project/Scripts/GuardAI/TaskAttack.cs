@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using KiwiBehaviorTree;
 
-using MinaBehaviorTree;
-
-public class TaskAttack : Node
+public class TaskAttack : Action
 {
     private Animator _animator;
 
@@ -19,7 +16,7 @@ public class TaskAttack : Node
         _animator = transform.GetComponent<Animator>();
     }
 
-    public override NodeState Evaluate()
+    public override NodeState OnUpdate()
     {
         Transform target = (Transform)GetData("target");
         if (target != _lastTarget)

@@ -1,7 +1,7 @@
 using UnityEngine;
-using MinaBehaviorTree;
+using KiwiBehaviorTree;
 
-public class CheckEnemyInAttackRange : Node
+public class CheckEnemyInAttackRange : Action
 {
     private Transform _transform;
     private Animator _animator;
@@ -12,7 +12,7 @@ public class CheckEnemyInAttackRange : Node
         _animator = transform.GetComponent<Animator>();
     }
 
-    public override NodeState Evaluate()
+    public override NodeState OnUpdate()
     {
         object t = GetData("target");
         if (t == null)

@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using KiwiBehaviorTree;
 
-using MinaBehaviorTree;
-
-public class CheckEnemyInFOVRange : Node
+public class CheckEnemyInFOVRange : Action
 {
     private static int _enemyLayerMask = 1 << 6;
 
@@ -17,7 +14,7 @@ public class CheckEnemyInFOVRange : Node
         _animator = transform.GetComponent<Animator>();
     }
 
-    public override NodeState Evaluate()
+    public override NodeState OnUpdate()
     {
         object t = GetData("target");
         if (t == null)
@@ -40,5 +37,4 @@ public class CheckEnemyInFOVRange : Node
         _state = NodeState.Success;
         return _state;
     }
-
 }

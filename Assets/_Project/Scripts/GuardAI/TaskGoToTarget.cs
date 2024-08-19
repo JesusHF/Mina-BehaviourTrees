@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using KiwiBehaviorTree;
 
-using MinaBehaviorTree;
-
-public class TaskGoToTarget : Node
+public class TaskGoToTarget : Action
 {
     private Transform _transform;
 
@@ -13,10 +10,9 @@ public class TaskGoToTarget : Node
         _transform = transform;
     }
 
-    public override NodeState Evaluate()
+    public override NodeState OnUpdate()
     {
         Transform target = (Transform)GetData("target");
-
         if (Vector3.Distance(_transform.position, target.position) > 0.01f)
         {
             _transform.position = Vector3.MoveTowards(
@@ -27,5 +23,4 @@ public class TaskGoToTarget : Node
         _state = NodeState.Running;
         return _state;
     }
-
 }
