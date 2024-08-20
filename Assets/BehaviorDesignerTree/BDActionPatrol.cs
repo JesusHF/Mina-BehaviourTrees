@@ -53,6 +53,7 @@ namespace BehaviorDesignerTree
 
                     _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Count;
                     _animator.SetBool("Walking", false);
+                    return TaskStatus.Success;
                 }
                 else
                 {
