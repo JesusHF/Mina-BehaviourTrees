@@ -29,6 +29,25 @@ namespace BehaviorDesignerTree
 
             Assert.IsNotNull(GlobalWaypointList);
             _waypoints = GlobalWaypointList.Value;
+
+            _waiting = true;
+
+            _currentWaypointIndex = 0;
+            float closestWaypointDistance = Vector3.Distance(_transform.position, _waypoints[0].position);
+            for (int i = 1; i < _waypoints.Count; i++)
+            {
+                float currentDistance = Vector3.Distance(_transform.position, _waypoints[i].position);
+                if (currentDistance < closestWaypointDistance)
+                {
+                    _currentWaypointIndex = i;
+                    closestWaypointDistance = currentDistance;
+                }
+            }
+
+            if (closestWaypointDistance <= 0.1f)
+            {
+                _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Count;
+            }
         }
 
         public override TaskStatus OnUpdate()
@@ -48,11 +67,6 @@ namespace BehaviorDesignerTree
                 if (Vector3.Distance(_transform.position, currentWaypoint.position) < 0.01f)
                 {
                     _transform.position = currentWaypoint.position;
-                    _waitCounter = 0f;
-                    _waiting = true;
-
-                    _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Count;
-                    _animator.SetBool("Walking", false);
                     return TaskStatus.Success;
                 }
                 else
@@ -63,6 +77,13 @@ namespace BehaviorDesignerTree
             }
 
             return TaskStatus.Running;
+        }
+
+        public override void OnEnd()
+        {
+            _waitCounter = 0f;
+            _waiting = true;
+            _animator.SetBool("Walking", false);
         }
     }
 }
