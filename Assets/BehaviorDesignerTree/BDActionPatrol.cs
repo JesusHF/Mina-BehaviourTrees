@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
+using BehaviorDesigner.Runtime.Tasks;
 
 namespace BehaviorDesignerTree
 {
     [TaskCategory("Knight")]
-    public class ActionKnightPatrol : Action
+    public class BDActionPatrol : Action
     {
         public SharedTransformList GlobalWaypointList;
         private Transform _transform;
