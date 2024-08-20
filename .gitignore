@@ -68,6 +68,5 @@ crashlytics-build.properties
 
 # Misc
 .DS_Store
-
-# Behavior Designer
-/[Aa]ssets/Packages/BehaviorDesigner
+/[Aa]ssets/Packages/BehaviorDesigner/*
+/[Aa]ssets/Packages/BehaviorDesigner.meta
