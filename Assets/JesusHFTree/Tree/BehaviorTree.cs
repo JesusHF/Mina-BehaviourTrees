@@ -22,6 +22,6 @@ namespace Jesushf
             }
         }
 
-        public abstract Node SetupTree();
+        protected abstract Node SetupTree();
     }
 }

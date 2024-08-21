@@ -4,7 +4,7 @@ namespace Jesushf
 {
     public abstract class Composite : Node
     {
-        protected List<Node> _children;
+        protected List<Node> _children = new();
 
         public Composite(List<Node> children) : base()
         {
