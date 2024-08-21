@@ -1,0 +1,29 @@
+using System.Collections.Generic;
+
+namespace Jesushf
+{
+    public class Sequence : Composite
+    {
+        public Sequence(List<Node> children) : base(children) { }
+
+        public override NodeState OnUpdate()
+        {
+            foreach (Node child in _children)
+            {
+                switch (child.OnUpdate())
+                {
+                    case NodeState.Running:
+                        _state = NodeState.Running;
+                        return _state;
+                    case NodeState.Failure:
+                        _state = NodeState.Failure;
+                        return _state;
+                    default: break;
+                }
+            }
+
+            _state = NodeState.Success;
+            return _state;
+        }
+    }
+}
