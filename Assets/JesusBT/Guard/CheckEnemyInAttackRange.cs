@@ -13,13 +13,13 @@ namespace Jesushf
             _animator = transform.GetComponent<Animator>();
         }
 
-        public override NodeState OnUpdate()
+        public override NodeStatus OnUpdate()
         {
             JesusBTGuard guard = _transform.GetComponent<JesusBTGuard>();
             Transform target = guard.Target;
             if (target == null)
             {
-                return NodeState.Failure;
+                return NodeStatus.Failure;
             }
 
             if (Vector3.Distance(_transform.position, target.position) <= GuardBT.attackRange)
@@ -27,10 +27,10 @@ namespace Jesushf
                 _animator.SetBool("Attacking", true);
                 _animator.SetBool("Walking", false);
 
-                return NodeState.Success;
+                return NodeStatus.Success;
             }
 
-            return NodeState.Failure;
+            return NodeStatus.Failure;
         }
     }
 }

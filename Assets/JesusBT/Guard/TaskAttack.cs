@@ -28,7 +28,7 @@ namespace Jesushf
             _animator.SetBool("Attacking", true);
         }
 
-        public override NodeState OnUpdate()
+        public override NodeStatus OnUpdate()
         {
             Transform target = _guard.Target;
             if (target != _lastTarget)
@@ -43,7 +43,7 @@ namespace Jesushf
                 bool enemyIsDead = _enemyManager.TakeHit();
                 if (enemyIsDead)
                 {
-                    return NodeState.Success;
+                    return NodeStatus.Success;
                 }
                 else
                 {
@@ -51,7 +51,7 @@ namespace Jesushf
                 }
             }
 
-            return NodeState.Running;
+            return NodeStatus.Running;
         }
 
         public override void OnExit()

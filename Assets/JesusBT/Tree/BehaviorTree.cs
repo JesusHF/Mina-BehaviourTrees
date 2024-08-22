@@ -6,7 +6,7 @@ namespace Jesushf
     public abstract class BehaviorTree : MonoBehaviour
     {
         private Node _root = null;
-        private NodeState _state = NodeState.Running;
+        private NodeStatus _state = NodeStatus.Running;
 
         private void Start()
         {
@@ -16,9 +16,9 @@ namespace Jesushf
 
         private void Update()
         {
-            if (_state != NodeState.Running)
+            if (_state != NodeStatus.Running)
             {
-                _state = NodeState.Running;
+                _state = NodeStatus.Running;
                 _root.Restart();
             }
 

@@ -15,7 +15,7 @@ namespace Jesushf
             _animator = transform.GetComponent<Animator>();
         }
 
-        public override NodeState OnUpdate()
+        public override NodeStatus OnUpdate()
         {
             JesusBTGuard guard = _transform.GetComponent<JesusBTGuard>();
             Transform t = guard.Target;
@@ -28,13 +28,13 @@ namespace Jesushf
                 {
                     guard.Target = colliders[0].transform;
                     _animator.SetBool("Walking", true);
-                    return NodeState.Success;
+                    return NodeStatus.Success;
                 }
 
-                return NodeState.Failure;
+                return NodeStatus.Failure;
             }
 
-            return NodeState.Success;
+            return NodeStatus.Success;
         }
     }
 }

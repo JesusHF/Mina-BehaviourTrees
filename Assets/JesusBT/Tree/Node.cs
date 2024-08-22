@@ -1,6 +1,6 @@
 namespace Jesushf
 {
-    public enum NodeState
+    public enum NodeStatus
     {
         Running,
         Success,
@@ -10,7 +10,7 @@ namespace Jesushf
     public abstract class Node
     {
         protected Node _parent;
-        protected NodeState _state = NodeState.Running;
+        protected NodeStatus _state = NodeStatus.Running;
         private bool _isStarted = false;
         private bool _isFinished = false;
 
@@ -21,7 +21,7 @@ namespace Jesushf
             _isFinished = false;
         }
 
-        public NodeState Evaluate()
+        public NodeStatus Evaluate()
         {
             if (_isStarted && _isFinished)
             {
@@ -34,9 +34,9 @@ namespace Jesushf
                 _isStarted = true;
             }
 
-            NodeState state = OnUpdate();
+            NodeStatus state = OnUpdate();
 
-            if (state != NodeState.Running && !_isFinished)
+            if (state != NodeStatus.Running && !_isFinished)
             {
                 OnExit();
                 _isFinished = true;
@@ -49,9 +49,9 @@ namespace Jesushf
         public virtual void OnEnter() { }
         public virtual void OnExit() { }
 
-        public virtual NodeState OnUpdate()
+        public virtual NodeStatus OnUpdate()
         {
-            return NodeState.Success;
+            return NodeStatus.Success;
         }
     }
 

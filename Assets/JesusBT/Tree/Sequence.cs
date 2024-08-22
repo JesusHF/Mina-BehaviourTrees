@@ -6,23 +6,23 @@ namespace Jesushf
     {
         public Sequence(List<Node> children) : base(children) { }
 
-        public override NodeState OnUpdate()
+        public override NodeStatus OnUpdate()
         {
             foreach (Node child in _children)
             {
                 switch (child.Evaluate())
                 {
-                    case NodeState.Running:
-                        _state = NodeState.Running;
+                    case NodeStatus.Running:
+                        _state = NodeStatus.Running;
                         return _state;
-                    case NodeState.Failure:
-                        _state = NodeState.Failure;
+                    case NodeStatus.Failure:
+                        _state = NodeStatus.Failure;
                         return _state;
                     default: break;
                 }
             }
 
-            _state = NodeState.Success;
+            _state = NodeStatus.Success;
             return _state;
         }
     }

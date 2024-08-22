@@ -30,7 +30,7 @@ namespace Jesushf
             _waiting = true;
         }
 
-        public override NodeState OnUpdate()
+        public override NodeStatus OnUpdate()
         {
             if (_waiting)
             {
@@ -47,7 +47,7 @@ namespace Jesushf
                 if (Vector3.Distance(_transform.position, currentWaypoint.position) < 0.01f)
                 {
                     _transform.position = currentWaypoint.position;
-                    return NodeState.Success;
+                    return NodeStatus.Success;
                 }
                 else
                 {
@@ -56,7 +56,7 @@ namespace Jesushf
                 }
             }
 
-            return NodeState.Running;
+            return NodeStatus.Running;
         }
 
         public override void OnExit()

@@ -18,18 +18,18 @@ namespace Jesushf
             _animator.SetBool("Walking", true);
         }
 
-        public override NodeState OnUpdate()
+        public override NodeStatus OnUpdate()
         {
             JesusBTGuard guard = _transform.GetComponent<JesusBTGuard>();
             Transform target = guard.Target;
             if (Vector3.Distance(_transform.position, target.position) <= JesusBTGuard.attackRange)
             {
-                return NodeState.Success;
+                return NodeStatus.Success;
             }
 
             _transform.position = Vector3.MoveTowards(_transform.position, target.position, JesusBTGuard.speed * Time.deltaTime);
             _transform.LookAt(target.position);
-            return NodeState.Running;
+            return NodeStatus.Running;
         }
 
         public override void OnExit()
