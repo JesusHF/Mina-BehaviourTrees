@@ -29,25 +29,9 @@ namespace BehaviorDesignerTree
 
             Assert.IsNotNull(GlobalWaypointList);
             _waypoints = GlobalWaypointList.Value;
+            _currentWaypointIndex = GetClosestWaypointIndex();
 
             _waiting = true;
-
-            _currentWaypointIndex = 0;
-            float closestWaypointDistance = Vector3.Distance(_transform.position, _waypoints[0].position);
-            for (int i = 1; i < _waypoints.Count; i++)
-            {
-                float currentDistance = Vector3.Distance(_transform.position, _waypoints[i].position);
-                if (currentDistance < closestWaypointDistance)
-                {
-                    _currentWaypointIndex = i;
-                    closestWaypointDistance = currentDistance;
-                }
-            }
-
-            if (closestWaypointDistance <= 0.1f)
-            {
-                _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Count;
-            }
         }
 
         public override TaskStatus OnUpdate()
@@ -84,6 +68,27 @@ namespace BehaviorDesignerTree
             _waitCounter = 0f;
             _waiting = true;
             _animator.SetBool("Walking", false);
+        }
+
+        private int GetClosestWaypointIndex()
+        {
+            int waypointIndex = 0;
+            float closestWaypointDistance = Vector3.Distance(_transform.position, _waypoints[0].position);
+            for (int i = 1; i < _waypoints.Count; i++)
+            {
+                float currentDistance = Vector3.Distance(_transform.position, _waypoints[i].position);
+                if (currentDistance < closestWaypointDistance)
+                {
+                    waypointIndex = i;
+                    closestWaypointDistance = currentDistance;
+                }
+            }
+
+            if (closestWaypointDistance <= 0.1f)
+            {
+                waypointIndex = (waypointIndex + 1) % _waypoints.Count;
+            }
+            return waypointIndex;
         }
     }
 }
