@@ -28,16 +28,13 @@ namespace Jesushf
                 {
                     guard.Target = colliders[0].transform;
                     _animator.SetBool("Walking", true);
-                    _state = NodeState.Success;
-                    return _state;
+                    return NodeState.Success;
                 }
 
-                _state = NodeState.Failure;
-                return _state;
+                return NodeState.Failure;
             }
 
-            _state = NodeState.Success;
-            return _state;
+            return NodeState.Success;
         }
     }
 }

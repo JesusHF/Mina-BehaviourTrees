@@ -16,6 +16,12 @@ namespace Jesushf
 
         private void Update()
         {
+            if (_state != NodeState.Running)
+            {
+                _state = NodeState.Running;
+                _root.Restart();
+            }
+
             _state = _root.OnUpdate();
         }
 

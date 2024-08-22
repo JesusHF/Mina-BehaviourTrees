@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Jesushf
 {
     public class TaskAttack : Action
     {
         private Animator _animator;
-        private JesusBTGuard guard = null;
+        private JesusBTGuard _guard = null;
 
         private Transform _lastTarget;
         private EnemyManager _enemyManager;
@@ -16,12 +17,20 @@ namespace Jesushf
         public TaskAttack(Transform transform)
         {
             _animator = transform.GetComponent<Animator>();
-            guard = transform.GetComponent<JesusBTGuard>();
+            _guard = transform.GetComponent<JesusBTGuard>();
+            Assert.IsNotNull(_animator);
+            Assert.IsNotNull(_guard);
+        }
+
+        public override void OnEnter()
+        {
+            _animator.SetBool("Walking", false);
+            _animator.SetBool("Attacking", true);
         }
 
         public override NodeState OnUpdate()
         {
-            Transform target = guard.Target;
+            Transform target = _guard.Target;
             if (target != _lastTarget)
             {
                 _enemyManager = target.GetComponent<EnemyManager>();
@@ -34,9 +43,7 @@ namespace Jesushf
                 bool enemyIsDead = _enemyManager.TakeHit();
                 if (enemyIsDead)
                 {
-                    guard.Target = null;
-                    _animator.SetBool("Attacking", false);
-                    _animator.SetBool("Walking", true);
+                    return NodeState.Success;
                 }
                 else
                 {
@@ -44,8 +51,12 @@ namespace Jesushf
                 }
             }
 
-            _state = NodeState.Running;
-            return _state;
+            return NodeState.Running;
+        }
+
+        public override void OnExit()
+        {
+            _animator.SetBool("Attacking", false);
         }
     }
 }

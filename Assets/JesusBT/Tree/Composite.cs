@@ -14,5 +14,14 @@ namespace Jesushf
                 _children.Add(child);
             }
         }
+
+        public override void Restart()
+        {
+            base.Restart();
+            foreach (Node child in _children)
+            {
+                child.Restart();
+            }
+        }
     }
 }

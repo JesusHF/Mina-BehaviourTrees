@@ -19,8 +19,7 @@ namespace Jesushf
             Transform target = guard.Target;
             if (target == null)
             {
-                _state = NodeState.Failure;
-                return _state;
+                return NodeState.Failure;
             }
 
             if (Vector3.Distance(_transform.position, target.position) <= GuardBT.attackRange)
@@ -28,12 +27,10 @@ namespace Jesushf
                 _animator.SetBool("Attacking", true);
                 _animator.SetBool("Walking", false);
 
-                _state = NodeState.Success;
-                return _state;
+                return NodeState.Success;
             }
 
-            _state = NodeState.Failure;
-            return _state;
+            return NodeState.Failure;
         }
     }
 }

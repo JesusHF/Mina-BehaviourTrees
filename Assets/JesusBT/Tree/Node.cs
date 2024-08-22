@@ -12,11 +12,22 @@ namespace Jesushf
         protected Node _parent;
         protected NodeState _state = NodeState.Running;
         private bool _isStarted = false;
+        private bool _isFinished = false;
 
         public void SetParent(Node parent) { _parent = parent; }
+        public virtual void Restart()
+        {
+            _isStarted = false;
+            _isFinished = false;
+        }
 
         public NodeState Evaluate()
         {
+            if (_isStarted && _isFinished)
+            {
+                return _state;
+            }
+
             if (!_isStarted)
             {
                 OnEnter();
@@ -25,13 +36,14 @@ namespace Jesushf
 
             NodeState state = OnUpdate();
 
-            if (state != NodeState.Running && _isStarted)
+            if (state != NodeState.Running && !_isFinished)
             {
                 OnExit();
-                _isStarted = false;
+                _isFinished = true;
             }
 
-            return state;
+            _state = state;
+            return _state;
         }
 
         public virtual void OnEnter() { }
