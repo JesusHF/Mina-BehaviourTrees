@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Jesushf
 {
@@ -6,9 +7,9 @@ namespace Jesushf
     {
         private Transform _transform;
         private Animator _animator;
-        private Transform[] _waypoints;
 
         private int _currentWaypointIndex = 0;
+        private Transform[] _waypoints;
 
         private float _waitTime = 1f; // in seconds
         private float _waitCounter = 0f;
@@ -19,6 +20,11 @@ namespace Jesushf
             _transform = transform;
             _animator = transform.GetComponent<Animator>();
             _waypoints = waypoints;
+            _currentWaypointIndex = GetClosestWaypointIndex();
+            _waiting = true;
+
+            Assert.IsNotNull(_transform);
+            Assert.IsNotNull(_animator);
         }
 
         public override NodeState OnUpdate()
@@ -34,25 +40,44 @@ namespace Jesushf
             }
             else
             {
-                Transform waypoint = _waypoints[_currentWaypointIndex];
-                if (Vector3.Distance(_transform.position, waypoint.position) < 0.01f)
+                Transform currentWaypoint = _waypoints[_currentWaypointIndex];
+                if (Vector3.Distance(_transform.position, currentWaypoint.position) < 0.01f)
                 {
-                    _transform.position = waypoint.position;
+                    _transform.position = currentWaypoint.position;
                     _waitCounter = 0f;
                     _waiting = true;
-
-                    _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Length;
                     _animator.SetBool("Walking", false);
+                    return NodeState.Success;
                 }
                 else
                 {
-                    _transform.position = Vector3.MoveTowards(_transform.position, waypoint.position, GuardBT.speed * Time.deltaTime);
-                    _transform.LookAt(waypoint.position);
+                    _transform.position = Vector3.MoveTowards(_transform.position, currentWaypoint.position, GuardBT.speed * Time.deltaTime);
+                    _transform.LookAt(currentWaypoint.position);
                 }
             }
 
-            _state = NodeState.Running;
-            return _state;
+            return NodeState.Running;
+        }
+
+        private int GetClosestWaypointIndex()
+        {
+            int waypointIndex = 0;
+            float closestWaypointDistance = Vector3.Distance(_transform.position, _waypoints[waypointIndex].position);
+            for (int i = 1; i < _waypoints.Length; i++)
+            {
+                float currentDistance = Vector3.Distance(_transform.position, _waypoints[i].position);
+                if (currentDistance < closestWaypointDistance)
+                {
+                    waypointIndex = i;
+                    closestWaypointDistance = currentDistance;
+                }
+            }
+
+            if (closestWaypointDistance <= 0.1f)
+            {
+                waypointIndex = (waypointIndex + 1) % _waypoints.Length;
+            }
+            return waypointIndex;
         }
     }
 }
