@@ -10,7 +10,7 @@ namespace Jesushf
         {
             foreach (Node child in children)
             {
-                child.Parent = this;
+                child.SetParent(this);
                 _children.Add(child);
             }
         }

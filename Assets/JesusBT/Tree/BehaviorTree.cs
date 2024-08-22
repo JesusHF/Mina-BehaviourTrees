@@ -16,10 +16,7 @@ namespace Jesushf
 
         private void Update()
         {
-            if (_state == NodeState.Running)
-            {
-                _state = _root.OnUpdate();
-            }
+            _state = _root.OnUpdate();
         }
 
         protected abstract Node SetupTree();

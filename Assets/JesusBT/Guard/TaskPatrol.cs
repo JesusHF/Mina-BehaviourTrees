@@ -20,11 +20,14 @@ namespace Jesushf
             _transform = transform;
             _animator = transform.GetComponent<Animator>();
             _waypoints = waypoints;
-            _currentWaypointIndex = GetClosestWaypointIndex();
-            _waiting = true;
-
             Assert.IsNotNull(_transform);
             Assert.IsNotNull(_animator);
+        }
+
+        public override void OnEnter()
+        {
+            _currentWaypointIndex = GetClosestWaypointIndex();
+            _waiting = true;
         }
 
         public override NodeState OnUpdate()
@@ -44,9 +47,6 @@ namespace Jesushf
                 if (Vector3.Distance(_transform.position, currentWaypoint.position) < 0.01f)
                 {
                     _transform.position = currentWaypoint.position;
-                    _waitCounter = 0f;
-                    _waiting = true;
-                    _animator.SetBool("Walking", false);
                     return NodeState.Success;
                 }
                 else
@@ -57,6 +57,13 @@ namespace Jesushf
             }
 
             return NodeState.Running;
+        }
+
+        public override void OnExit()
+        {
+            _waitCounter = 0f;
+            _waiting = true;
+            _animator.SetBool("Walking", false);
         }
 
         private int GetClosestWaypointIndex()

@@ -10,7 +10,7 @@ namespace Jesushf
         {
             foreach (Node child in _children)
             {
-                switch (child.OnUpdate())
+                switch (child.Evaluate())
                 {
                     case NodeState.Running:
                         _state = NodeState.Running;

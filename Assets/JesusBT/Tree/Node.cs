@@ -11,7 +11,31 @@ namespace Jesushf
     {
         protected Node _parent;
         protected NodeState _state = NodeState.Running;
-        public Node Parent { get { return _parent; } set { _parent = value; } }
+        private bool _isStarted = false;
+
+        public void SetParent(Node parent) { _parent = parent; }
+
+        public NodeState Evaluate()
+        {
+            if (!_isStarted)
+            {
+                OnEnter();
+                _isStarted = true;
+            }
+
+            NodeState state = OnUpdate();
+
+            if (state != NodeState.Running && _isStarted)
+            {
+                OnExit();
+                _isStarted = false;
+            }
+
+            return state;
+        }
+
+        public virtual void OnEnter() { }
+        public virtual void OnExit() { }
 
         public virtual NodeState OnUpdate()
         {
